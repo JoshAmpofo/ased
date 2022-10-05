@@ -1,3 +1,3 @@
-## Shell Basics
+## Basic Commands in Shell
 
-This repo will contain alx SE tasks and projects on shell basics and Devops
+This directory contains several files which execute specific commands in bash.
