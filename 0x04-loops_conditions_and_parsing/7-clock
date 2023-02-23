@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This script will print the hours and minutes of clock. The hours are from 0 to 12 and the minutes are from 1 to 59
+
+count_hr=0
+while [ $count_hr -le 12 ]
+do
+	count_min=1
+	echo "Hour:" $count_hr
+	while [ $count_min -le 59 ]
+	do
+		echo $count_min
+		((count_min++))
+	done
+	((count_hr++))
+done
