@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# This script will print the contents of the current working directory in list format without the leading characters
+
+for file in *
+do
+	if [ "${file:0:1}" != "." ] && [ -f "$file" ]
+	then
+		filename=$(echo "$file" | cut -d'-' -f2-)
+		echo "$filename"
+	fi
+done
