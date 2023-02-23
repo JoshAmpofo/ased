@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This script will print "Best School" 10 times but print "Best School" and "hi" on the 9th iteration
+
+str_count=1
+while [ $str_count -le 10 ]
+do 
+	if [ $str_count -eq 9 ]
+	then
+		echo "Best School"
+		echo "Hi"
+	else
+		echo "Best School"
+	fi
+	((str_count++))
+done
