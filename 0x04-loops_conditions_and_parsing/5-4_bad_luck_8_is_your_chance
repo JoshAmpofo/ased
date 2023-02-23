@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# This script prints a set of str accrding to the iteration number using only while_if_elif_else loops
+
+str_count=1
+while [ $str_count -le 10 ]
+do
+	if [ $str_count -eq 4 ]
+	then 
+		echo "bad luck"
+	elif [ $str_count -eq 8 ]
+	then
+		echo "good luck"
+	else
+		echo "Best School"
+	fi
+	((str_count++))
+done
