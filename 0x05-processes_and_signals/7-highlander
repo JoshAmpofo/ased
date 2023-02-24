@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Indefinitely print str term with a 2 sec sleep mode
+
+while true
+do
+	echo "To infinity and beyond"
+	sleep 2
+	trap 'echo "I am invincible!!!"' SIGTERM
+done
