@@ -1,6 +1,6 @@
 # This manifest will makes changes to ssh_config file
-include stdlib
 
+include stdlib
 
 file_line { 'Refuse password authentication':
   ensure  => present,
@@ -12,6 +12,6 @@ file_line { 'Refuse password authentication':
 file_line { 'Set private key':
   ensure  => present,
   path    => '/etc/ssh/ssh_config',
-  line    => 'IdentityFile ~/.ssh/school'
+  line    => 'IdentityFile ~/.ssh/school',
   replace => true,
   }
