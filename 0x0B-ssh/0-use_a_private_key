@@ -2,4 +2,4 @@
 # This script will use ssh to connect to the server 34.138.32.248
 # ssh key can be found in ~/.ssh/school
 
-ssh -i ~/.ssh/school ubuntu@34.138.32.248
+ssh -i ~/.ssh/school ubuntu@100.25.139.47
