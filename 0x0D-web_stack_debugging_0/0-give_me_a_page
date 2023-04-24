@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# This script will fix an Apache error running on a docker container
+# The fixed error will now return a message "Hello Holberton"
+
+# add localhost as default server name to apache2 config file
+echo "ServerName localhost" >> /etc/apache2.conf
+# restart service to accept changes made to config file
+service apache2 start
+# message in html page of localhost on port 80 will then be displayed
+# when curl 0:8080 is run
