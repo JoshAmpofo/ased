@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# This script will redirect the /redirect_me page of nginx server
+# redirection will be '301 Moved Permanently'
+# Server will also be configured to update these changes
+
+
+# update package lists
+apt-get update
+
+# install nginx
+apt-get -y install nginx
+
+# configure nginx
+sudo ufw allow 'Nginx HTTP'
+mkdir /etc/nginx/html
+sudo chmod -R 755 /var/www
+echo 'Hello World!' > /var/www/html/index.html
+printf %s "server {
+	listen 80;
+	listen [::]:80 default_server;
+	root /etc/nginx/html;
+	index index.html index.htm;
+	location /redirect_me {
+		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+	}
+}" > /etc/nginx/sites-available/default
+
+# restart nginx
+service nginx start
