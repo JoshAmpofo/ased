@@ -1,34 +1,24 @@
 #!/usr/bin/env bash
 # This script will setup a 404 error page in nginx server
-
+# The 404 page will display 'Ceci n'est pas une page'
 
 # update package lists
-apt-get update
+sudo apt-get update
 
 # install nginx
-apt-get -y install nginx
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
 
-# configure nginx 404 webpage
-echo "Hello World!" > index.html
-mv index.html /var/www/html
+# create default index file
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
 
-echo "Ceci n'est pas une page" > 404.html
-mv 404.html /var/www/html
-echo "server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-	root /var/www/html;
-	index index.html;
-	location /redirect_me {
-		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-	}
-	error_page 404 /404.html;
-	location = /404.html {
-		internal;
-		}
-}" > default
+# configure nginx to redirect
+sed -i '/listen 80 default_server;/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 
-mv -f default /etc/nginx/sites-available/default
+# configure 404 page message
+echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
+
+sed -i '/server_name _;/a error_page 404 /custom_404.html;/nlocation = /cutom_404.html {\nroot /usr/share/nginx/html;\ninternal;\n}' /etc/nginx/sites-available/default
 
 # restart nginx
 service nginx start
