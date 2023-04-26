@@ -5,25 +5,25 @@
 
 
 # update package lists
-apt-get update
+sudo apt-get update
 
 # install nginx
-apt-get -y install nginx
+sudo apt-get -y install nginx
 
-# configure nginx
-sudo ufw allow 'Nginx HTTP'
-mkdir /etc/nginx/html
-sudo chmod -R 755 /var/www
-echo 'Hello World!' > /var/www/html/index.html
-printf %s "server {
-	listen 80;
-	listen [::]:80 default_server;
-	root /etc/nginx/html;
-	index index.html index.htm;
-	location /redirect_me {
-		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-	}
-}" > /etc/nginx/sites-available/default
+# create backup of default config file
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+
+# configure nginx to redirect /redirect_me to another page
+sudo sed -i '/^server {/a \   location /redirect_me {\n      return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n    }' /etc/nginx/sites-available/default
+
+# remove default configuration symlink
+sudo rm /etc/nginx/sites-enabled/default
+
+# create symlink to modified config file
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+# create default index file
+sudo bash -c 'echo "Hello World!" > /var/www/html/index.html'
 
 # restart nginx
-service nginx start
+sudo service nginx start
