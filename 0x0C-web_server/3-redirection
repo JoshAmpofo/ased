@@ -5,26 +5,17 @@
 
 
 # update package lists
-sudo apt-get update
+apt-get update
 
 # install nginx
-sudo apt-get -y install nginx
+apt-get -y install nginx
 ufw allow 'Nginx HTTP'
 
 # create default index file
-sudo bash -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
-
-# create backup of default config file
-sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
 
 # configure nginx to redirect /redirect_me to another page
-sudo sed -i '/listen 80 default_server;/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
-
-# remove default configuration symlink
-sudo rm /etc/nginx/sites-enabled/default
-
-# create symlink to modified config file
-sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sed -i '/listen 80 default_server;/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 
 # restart nginx
-sudo service nginx start
+service nginx start
